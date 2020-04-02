@@ -43,7 +43,7 @@ class FocusedPicture extends Component {
     if (size.width && size.height) {
       subtitleElements.push(
         <span>
-          {size.width}cm x {size.height}cm
+          {size.width} x {size.height} cm
         </span>
       );
     }
