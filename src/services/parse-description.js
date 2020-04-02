@@ -1,5 +1,5 @@
 const REGEX_PAINTINGTYPE = /^(Acryl|Aquarell|Kohle|Öl)$/i;
-const REGEX_DIMENSIONS = /^([0-9]*)cm x ([0-9]*)cm$/;
+const REGEX_DIMENSIONS = /^([0-9]*) x ([0-9]*) cm$/;
 const REGEX_PRICE = /^([0-9]*)€$/;
 
 export const parseDescription = (pictureData) => {
