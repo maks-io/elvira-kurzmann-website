@@ -46,6 +46,7 @@ class Main extends Component {
     focusedPicture: undefined,
     impressumIsOpen: false,
     kontaktIsOpen: false,
+    form: { name: "", email: "", subject: "", message: "" },
   };
 
   componentDidMount = async () => {
@@ -54,6 +55,8 @@ class Main extends Component {
     this.setState({
       pictures: preparePictures(fetchedPictureData),
     });
+
+    Modal.setAppElement("#outer-container");
   };
 
   handleStateChange(state) {
@@ -76,11 +79,27 @@ class Main extends Component {
     this.setState({ impressumIsOpen: false, kontaktIsOpen: false });
   };
 
+  handleFormFieldChange = (e) => {
+    const { name, value } = e.target;
+
+    this.setState(
+      (prevState) => ({
+        ...prevState,
+        form: { ...prevState.form, [name]: value },
+      }),
+      () => {
+        console.log("form state:", this.state.form);
+      }
+    );
+  };
+
   render() {
     const filter = this.state.focusedPicture && "blur(6px)";
     const focusedPictureData =
       this.state.focusedPicture &&
       this.state.pictures.filter((p) => p.id === this.state.focusedPicture)[0];
+
+    const { name, email, subject, message } = this.state.form;
 
     return (
       <React.Fragment>
@@ -205,8 +224,12 @@ class Main extends Component {
                 pointerEvents: focusedPictureData && "none",
               }}
             >
-              {this.state.pictures.map((p) => (
-                <Picture data={p} setFocus={this.setFocus} />
+              {this.state.pictures.map((p, index) => (
+                <Picture
+                  key={`picture-${index}`}
+                  data={p}
+                  setFocus={this.setFocus}
+                />
               ))}
             </div>
             <style>
@@ -237,10 +260,8 @@ class Main extends Component {
         <Modal
           isOpen={this.state.kontaktIsOpen}
           onRequestClose={this.closeModals}
-          contentLabel="Example Modal"
         >
           <div
-            onClick={this.closeModals}
             style={{
               display: "flex",
               flexDirection: "column",
@@ -264,6 +285,8 @@ class Main extends Component {
                     id="name"
                     name="name"
                     required
+                    value={name}
+                    onChange={this.handleFormFieldChange}
                   />
                   <label htmlFor="name">Name</label>
                 </div>
@@ -274,6 +297,8 @@ class Main extends Component {
                     id="email"
                     name="email"
                     required
+                    value={email}
+                    onChange={this.handleFormFieldChange}
                   />
                   <label htmlFor="email">Email</label>
                 </div>
@@ -285,6 +310,8 @@ class Main extends Component {
                   id="subject"
                   name="subject"
                   required
+                  value={subject}
+                  onChange={this.handleFormFieldChange}
                 />
                 <label htmlFor="subject">Betreff</label>
               </div>
@@ -295,6 +322,8 @@ class Main extends Component {
                   name="message"
                   required
                   rows="4"
+                  value={message}
+                  onChange={this.handleFormFieldChange}
                 ></textarea>
                 <label htmlFor="message">Deine Nachricht</label>
               </div>
@@ -310,8 +339,6 @@ class Main extends Component {
         <Modal
           isOpen={this.state.impressumIsOpen}
           onRequestClose={this.closeModals}
-          // style={customStyles}
-          contentLabel="Example Modal"
         >
           <div
             onClick={this.closeModals}
@@ -331,6 +358,13 @@ class Main extends Component {
             </p>
           </div>
         </Modal>
+        <style>
+          {`
+                      .ReactModal__Overlay {
+                        z-index: 9999;
+                      }
+                    `}
+        </style>
       </React.Fragment>
     );
   }

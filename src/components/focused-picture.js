@@ -73,6 +73,7 @@ class FocusedPicture extends Component {
               }}
               width={widthIsTheLimit && this.state.windowWidth}
               height={!widthIsTheLimit && this.state.windowHeight}
+              alt={"focused-pic"}
             />
             <div
               style={{ position: "absolute", top: 0, left: 0, padding: "1vw" }}

@@ -6,7 +6,7 @@ class Picture extends Component {
   state = { isHovered: false };
 
   render() {
-    const { data,setFocus } = this.props;
+    const { data, setFocus } = this.props;
     const {
       display_url: src,
       dimensions: { height: originalHeight, width: originalWidth },
@@ -16,20 +16,21 @@ class Picture extends Component {
     const thumbnailWidth = thumbnailHeight / ratio;
 
     return (
-        <img
-          className={"picture"}
-          src={src}
-          style={{
-            width: `${thumbnailWidth}rem`,
-            height: `${thumbnailHeight}rem`,
-            margin: "1rem",
-            cursor: "pointer",
-            transform: this.state.isHovered && "scale(1.2)",
-          }}
-          onMouseEnter={() => this.setState({ isHovered: true })}
-          onMouseLeave={() => this.setState({ isHovered: false })}
-          onClick={() => setFocus(data.id)}
-        />
+      <img
+        className={"picture"}
+        src={src}
+        style={{
+          width: `${thumbnailWidth}rem`,
+          height: `${thumbnailHeight}rem`,
+          margin: "1rem",
+          cursor: "pointer",
+          transform: this.state.isHovered && "scale(1.2)",
+        }}
+        onMouseEnter={() => this.setState({ isHovered: true })}
+        onMouseLeave={() => this.setState({ isHovered: false })}
+        onClick={() => setFocus(data.id)}
+        alt={"small-pic"}
+      />
     );
   }
 }
