@@ -9,6 +9,7 @@ import config from "../../config";
 import { preparePictures } from "../../services/prepare-pictures";
 import FocusedPicture from "../../components/focused-picture";
 import { getInstagramUrl } from "../../services/get-instagram-url";
+import ContactForm from "../../components/contact-form";
 
 class MenuItem extends Component {
   state = { isHovered: false };
@@ -46,7 +47,6 @@ class Main extends Component {
     focusedPicture: undefined,
     impressumIsOpen: false,
     kontaktIsOpen: false,
-    form: { name: "", email: "", subject: "", message: "" },
   };
 
   componentDidMount = async () => {
@@ -79,27 +79,12 @@ class Main extends Component {
     this.setState({ impressumIsOpen: false, kontaktIsOpen: false });
   };
 
-  handleFormFieldChange = (e) => {
-    const { name, value } = e.target;
-
-    this.setState(
-      (prevState) => ({
-        ...prevState,
-        form: { ...prevState.form, [name]: value },
-      }),
-      () => {
-        console.log("form state:", this.state.form);
-      }
-    );
-  };
-
   render() {
     const filter = this.state.focusedPicture && "blur(6px)";
     const focusedPictureData =
       this.state.focusedPicture &&
       this.state.pictures.filter((p) => p.id === this.state.focusedPicture)[0];
 
-    const { name, email, subject, message } = this.state.form;
 
     return (
       <React.Fragment>
@@ -261,80 +246,7 @@ class Main extends Component {
           isOpen={this.state.kontaktIsOpen}
           onRequestClose={this.closeModals}
         >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              flex: 1,
-              height: "100%",
-            }}
-          >
-            <h2>Kontakt</h2>
-            <h3>Ich freue mich über deine Nachricht!</h3>
-            <form
-              name="contact"
-              className="form"
-              method="POST"
-              data-netlify="true"
-            >
-              <div>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    id="name"
-                    name="name"
-                    required
-                    value={name}
-                    onChange={this.handleFormFieldChange}
-                  />
-                  <label htmlFor="name">Name</label>
-                </div>
-                <div>
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    id="email"
-                    name="email"
-                    required
-                    value={email}
-                    onChange={this.handleFormFieldChange}
-                  />
-                  <label htmlFor="email">Email</label>
-                </div>
-              </div>
-              <div>
-                <input
-                  type="text"
-                  placeholder="Betreff"
-                  id="subject"
-                  name="subject"
-                  required
-                  value={subject}
-                  onChange={this.handleFormFieldChange}
-                />
-                <label htmlFor="subject">Betreff</label>
-              </div>
-              <div>
-                <textarea
-                  placeholder="Nachricht"
-                  id="message"
-                  name="message"
-                  required
-                  rows="4"
-                  value={message}
-                  onChange={this.handleFormFieldChange}
-                ></textarea>
-                <label htmlFor="message">Deine Nachricht</label>
-              </div>
-
-              <div>
-                <button type="submit" name="submit" value="Submit">
-                  Nachricht absenden!
-                </button>
-              </div>
-            </form>
-          </div>
+          <ContactForm handleClose={this.closeModals} />
         </Modal>
         <Modal
           isOpen={this.state.impressumIsOpen}
