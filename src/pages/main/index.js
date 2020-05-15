@@ -6,6 +6,7 @@ import { slide as Menu } from "react-burger-menu";
 import { menuStyles } from "./styles";
 import colors from "../../colors";
 import config from "../../config";
+import CONSTANTS from "../../constants";
 import { preparePictures } from "../../services/prepare-pictures";
 import FocusedPicture from "../../components/focused-picture";
 import { getInstagramUrl } from "../../services/get-instagram-url";
@@ -40,6 +41,31 @@ class MenuItem extends Component {
   }
 }
 
+class FilterTag extends Component {
+  render() {
+    const { name, title, active, onClick, color } = this.props;
+    return (
+      <div
+        title={title}
+        onClick={onClick}
+        style={{
+          fontSize: 11,
+          fontWeight: "bold",
+          // borderRadius: 25,
+          padding: "3px 6px",
+          margin: 5,
+          backgroundColor: color,
+          color: colors.colorC,
+          opacity: !active && 0.4,
+          cursor: "pointer",
+        }}
+      >
+        {name}
+      </div>
+    );
+  }
+}
+
 class Main extends Component {
   state = {
     menuOpen: false,
@@ -47,6 +73,8 @@ class Main extends Component {
     focusedPicture: undefined,
     impressumIsOpen: false,
     kontaktIsOpen: false,
+    paintingSubjectFilter: undefined,
+    paintingTypeFilter: undefined,
   };
 
   componentDidMount = async () => {
@@ -85,6 +113,15 @@ class Main extends Component {
       this.state.focusedPicture &&
       this.state.pictures.filter((p) => p.id === this.state.focusedPicture)[0];
 
+    const filteredPictures = this.state.pictures.filter(
+      (ps) =>
+        (!this.state.paintingSubjectFilter ||
+          ps.parsedDescription.paintingSubject.toUpperCase() ===
+            this.state.paintingSubjectFilter) &&
+        (!this.state.paintingTypeFilter ||
+          ps.parsedDescription.paintingType.toUpperCase() ===
+            this.state.paintingTypeFilter)
+    );
 
     return (
       <React.Fragment>
@@ -153,6 +190,7 @@ class Main extends Component {
                 fontSize: "3rem",
                 color: colors.colorB,
                 flexDirection: "column",
+                marginTop: "2rem",
               }}
             >
               <div
@@ -167,7 +205,7 @@ class Main extends Component {
               </div>
               <div
                 style={{
-                  margin: "0.3rem 1rem",
+                  margin: "0.3rem 0.2rem",
                   fontSize: "1rem",
                   opacity: 1.0,
                   filter: "drop-shadow(0px 0px 45px black)",
@@ -191,12 +229,88 @@ class Main extends Component {
                        height: ${window.innerHeight}px;
                      }
                      100% {
-                       height: 10rem;
+                       height: 8rem;
                      }
                    }
               `}
               </style>
             </div>
+            <div
+              className={"filters"}
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                pointerEvents: focusedPictureData && "none",
+              }}
+            >
+              {["ALLE STILE", ...CONSTANTS.PAINTING_TYPES].map((pt, index) => (
+                <FilterTag
+                  name={pt}
+                  color={colors.colorB}
+                  active={
+                    index === 0
+                      ? !this.state.paintingTypeFilter
+                      : !this.state.paintingTypeFilter ||
+                        this.state.paintingTypeFilter === pt
+                  }
+                  onClick={() => {
+                    this.setState({
+                      paintingTypeFilter: index === 0 ? undefined : pt,
+                    });
+                  }}
+                />
+              ))}
+            </div>
+            <div
+              className={"filters"}
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                pointerEvents: focusedPictureData && "none",
+                marginBottom: "2rem",
+              }}
+            >
+              {["ALLE THEMEN", ...CONSTANTS.PAINTING_SUBJECTS].map(
+                (ps, index) => (
+                  <FilterTag
+                    name={ps}
+                    color={colors.colorF}
+                    active={
+                      index === 0
+                        ? !this.state.paintingSubjectFilter
+                        : !this.state.paintingSubjectFilter ||
+                          this.state.paintingSubjectFilter === ps
+                    }
+                    onClick={() => {
+                      this.setState({
+                        paintingSubjectFilter: index === 0 ? undefined : ps,
+                      });
+                    }}
+                  />
+                )
+              )}
+            </div>
+            <style>
+              {`
+                   .filters {
+                       animation: fadeFilters 7s forwards;
+                   }
+                   
+                   @keyframes fadeFilters {
+                     0% {
+                       opacity: 0;
+                     }
+                     50% {
+                       opacity: 0;
+                     }
+                     100% {
+                       opacity: 1;
+                     }
+                   }
+              `}
+            </style>
             <div
               className={"gallery"}
               style={{
@@ -209,7 +323,7 @@ class Main extends Component {
                 pointerEvents: focusedPictureData && "none",
               }}
             >
-              {this.state.pictures.map((p, index) => (
+              {filteredPictures.map((p, index) => (
                 <Picture
                   key={`picture-${index}`}
                   data={p}

@@ -5,6 +5,7 @@ const colorPalette1 = {
   colorC: "#747B81",
   colorD: "#9D9298",
   colorE: "#CAABA6",
+  colorF: "#eeeeee",
 };
 
 export default colorPalette1;
