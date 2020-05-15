@@ -20,7 +20,7 @@ class FocusedPicture extends Component {
     const {
       display_url: src,
       dimensions: { height: originalHeight, width: originalWidth },
-      parsedDescription: { title, paintingType, size, price },
+      parsedDescription: { title, paintingSubject, paintingType, size, price },
       shortcode,
     } = data;
 
@@ -37,6 +37,9 @@ class FocusedPicture extends Component {
     const isSmallDevice = this.state.windowWidth < 600;
 
     const subtitleElements = [];
+    if (paintingSubject) {
+      subtitleElements.push(<span>{paintingSubject}</span>);
+    }
     if (paintingType) {
       subtitleElements.push(<span>{paintingType}</span>);
     }
