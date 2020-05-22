@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import _ from "lodash";
 import Modal from "react-modal";
 import Picture from "../../components/picture";
 import { slide as Menu } from "react-burger-menu";
@@ -73,13 +74,19 @@ class Main extends Component {
     impressumIsOpen: false,
     kontaktIsOpen: false,
     paintingSubjectFilter: undefined,
+    availablePaintingSubjects: [],
   };
 
   componentDidMount = async () => {
     const url = getInstagramUrl(config.userId, config.limit);
     const fetchedPictureData = await axios.get(url);
+    const pictures = preparePictures(fetchedPictureData);
+    const availablePaintingSubjects = Object.keys(
+      _.countBy(pictures, "parsedDescription.paintingSubject")
+    ).map((ps) => ps.toUpperCase());
     this.setState({
-      pictures: preparePictures(fetchedPictureData),
+      pictures,
+      availablePaintingSubjects,
     });
 
     Modal.setAppElement("#outer-container");
@@ -240,7 +247,7 @@ class Main extends Component {
                 marginBottom: "2rem",
               }}
             >
-              {["ALLE THEMEN", ...CONSTANTS.PAINTING_SUBJECTS].map(
+              {["ALLE THEMEN", ...this.state.availablePaintingSubjects].map(
                 (ps, index) => (
                   <FilterTag
                     name={ps}
