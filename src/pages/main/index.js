@@ -252,9 +252,13 @@ class Main extends Component {
                           this.state.paintingSubjectFilter === ps
                     }
                     onClick={() => {
-                      this.setState({
-                        paintingSubjectFilter: index === 0 ? undefined : ps,
-                      });
+                      if (this.state.paintingSubjectFilter === ps) {
+                        this.setState({ paintingSubjectFilter: undefined });
+                      } else {
+                        this.setState({
+                          paintingSubjectFilter: index === 0 ? undefined : ps,
+                        });
+                      }
                     }}
                   />
                 )
