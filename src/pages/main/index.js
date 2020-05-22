@@ -83,7 +83,7 @@ class Main extends Component {
     const pictures = preparePictures(fetchedPictureData);
     const availablePaintingSubjects = Object.keys(
       _.countBy(pictures, "parsedDescription.paintingSubject")
-    ).map((ps) => ps.toUpperCase());
+    ).map((ps) => ps.toUpperCase()).sort();
     this.setState({
       pictures,
       availablePaintingSubjects,
