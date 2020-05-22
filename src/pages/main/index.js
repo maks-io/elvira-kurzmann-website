@@ -51,7 +51,6 @@ class FilterTag extends Component {
         style={{
           fontSize: 11,
           fontWeight: "bold",
-          // borderRadius: 25,
           padding: "3px 6px",
           margin: 5,
           backgroundColor: color,
@@ -74,7 +73,6 @@ class Main extends Component {
     impressumIsOpen: false,
     kontaktIsOpen: false,
     paintingSubjectFilter: undefined,
-    paintingTypeFilter: undefined,
   };
 
   componentDidMount = async () => {
@@ -115,12 +113,9 @@ class Main extends Component {
 
     const filteredPictures = this.state.pictures.filter(
       (ps) =>
-        (!this.state.paintingSubjectFilter ||
-          ps.parsedDescription.paintingSubject.toUpperCase() ===
-            this.state.paintingSubjectFilter) &&
-        (!this.state.paintingTypeFilter ||
-          ps.parsedDescription.paintingType.toUpperCase() ===
-            this.state.paintingTypeFilter)
+        !this.state.paintingSubjectFilter ||
+        ps.parsedDescription.paintingSubject.toUpperCase() ===
+          this.state.paintingSubjectFilter
     );
 
     return (
@@ -234,33 +229,6 @@ class Main extends Component {
                    }
               `}
               </style>
-            </div>
-            <div
-              className={"filters"}
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                pointerEvents: focusedPictureData && "none",
-              }}
-            >
-              {["ALLE STILE", ...CONSTANTS.PAINTING_TYPES].map((pt, index) => (
-                <FilterTag
-                  name={pt}
-                  color={colors.colorB}
-                  active={
-                    index === 0
-                      ? !this.state.paintingTypeFilter
-                      : !this.state.paintingTypeFilter ||
-                        this.state.paintingTypeFilter === pt
-                  }
-                  onClick={() => {
-                    this.setState({
-                      paintingTypeFilter: index === 0 ? undefined : pt,
-                    });
-                  }}
-                />
-              ))}
             </div>
             <div
               className={"filters"}
