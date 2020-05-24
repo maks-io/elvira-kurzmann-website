@@ -1,6 +1,7 @@
 import React from "react";
 import FilterTag from "./filter-tag";
 import colors from "../colors";
+import constants from "../constants";
 
 const FilterSection = (props) => {
   const {
@@ -14,11 +15,11 @@ const FilterSection = (props) => {
     <div
       className={"filters"}
       style={{
+        height: constants.FILTER_SECTION_HEIGHT,
         display: "flex",
         flexWrap: "wrap",
         justifyContent: "center",
         pointerEvents: focusedPictureData && "none",
-        marginBottom: "2rem",
       }}
     >
       {["ALLE THEMEN", ...availablePaintingSubjects].map((ps, index) => (

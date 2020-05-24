@@ -1,8 +1,8 @@
 import React from "react";
 import colors from "../colors";
+import constants from "../constants";
 
 const TitleSection = () => {
-
   return (
     <div
       className={"title"}
@@ -15,12 +15,11 @@ const TitleSection = () => {
         fontSize: "3rem",
         color: colors.colorB,
         flexDirection: "column",
-        marginTop: "2rem",
+        marginTop: constants.FILTER_SECTION_HEIGHT,
       }}
     >
       <div
         style={{
-          margin: "0 1rem",
           lineHeight: "2rem",
           opacity: 0.65,
           filter: "drop-shadow(0px 0px 45px black)",
@@ -30,7 +29,6 @@ const TitleSection = () => {
       </div>
       <div
         style={{
-          margin: "0.3rem 0.2rem",
           fontSize: "1rem",
           opacity: 1.0,
           filter: "drop-shadow(0px 0px 45px black)",

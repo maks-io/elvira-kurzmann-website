@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import colors from "../colors";
+import constants from "../constants";
 
 class FilterTag extends Component {
   render() {
@@ -12,11 +13,12 @@ class FilterTag extends Component {
           fontSize: 11,
           fontWeight: "bold",
           padding: "3px 6px",
-          margin: 5,
+          margin: constants.FILTERS_MARGIN,
           backgroundColor: color,
           color: colors.colorC,
           opacity: !active && 0.4,
           cursor: "pointer",
+          height: "max-content",
         }}
       >
         {name}
@@ -25,4 +27,4 @@ class FilterTag extends Component {
   }
 }
 
-export default FilterTag
+export default FilterTag;
