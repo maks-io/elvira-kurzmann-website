@@ -13,10 +13,12 @@ import TitleSection from "../../components/title-section";
 import FilterSection from "../../components/filter-section";
 import GallerySection from "../../components/gallery-section";
 import Drawer from "../../components/drawer";
+import AboutMeModal from "../../modals/about-me-modal";
 
 class Main extends Component {
   state = {
     drawerIsOpen: false,
+    aboutMeModalIsOpen: false,
     contactModalIsOpen: false,
     siteNoticeModalIsOpen: false,
     pictures: [],
@@ -46,6 +48,12 @@ class Main extends Component {
     this.setState({ drawerIsOpen: isOpen });
   };
 
+  handleToggleAboutMeModal = (isOpen = !this.state.aboutMeModalIsOpen) => {
+    this.setState({
+      aboutMeModalIsOpen: isOpen,
+    });
+  };
+
   handleToggleContactModal = (isOpen = !this.state.contactModalIsOpen) => {
     this.setState({
       contactModalIsOpen: isOpen,
@@ -61,7 +69,11 @@ class Main extends Component {
   };
 
   closeModals = () => {
-    this.setState({ contactModalIsOpen: false, siteNoticeModalIsOpen: false });
+    this.setState({
+      aboutMeModalIsOpen: false,
+      contactModalIsOpen: false,
+      siteNoticeModalIsOpen: false,
+    });
   };
 
   setFocus = (pictureId) => {
@@ -116,6 +128,7 @@ class Main extends Component {
           <Drawer
             isOpen={this.state.drawerIsOpen}
             handleToggleDrawer={this.handleToggleDrawer}
+            handleToggleAboutMeModal={this.handleToggleAboutMeModal}
             handleToggleContactModal={this.handleToggleContactModal}
             handleToggleSiteNoticeModal={this.handleToggleSiteNoticeModal}
             handleCloseModals={this.closeModals}
@@ -146,6 +159,10 @@ class Main extends Component {
         <FocusedPicture
           data={focusedPictureData}
           onClick={() => this.setState({ focusedPicture: undefined })}
+        />
+        <AboutMeModal
+          isOpen={this.state.aboutMeModalIsOpen}
+          handleClose={this.closeModals}
         />
         <ContactFormModal
           isOpen={this.state.contactModalIsOpen}

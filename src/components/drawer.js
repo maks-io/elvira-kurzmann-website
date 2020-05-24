@@ -7,9 +7,9 @@ const Drawer = (props) => {
   const {
     isOpen,
     handleToggleDrawer,
+    handleToggleAboutMeModal,
     handleToggleContactModal,
     handleToggleSiteNoticeModal,
-    handleCloseModals,
   } = props;
 
   return (
@@ -19,6 +19,14 @@ const Drawer = (props) => {
       isOpen={isOpen}
       onStateChange={(drawerState) => handleToggleDrawer(drawerState.isOpen)}
     >
+      <MenuItem
+        id={"menu-entry-about-me"}
+        name={"Über mich"}
+        onClick={() => {
+          handleToggleAboutMeModal(true);
+          handleToggleDrawer(false);
+        }}
+      />
       <MenuItem
         id={"menu-entry-contact-form"}
         name={"Kontakt"}
