@@ -20,14 +20,6 @@ const Drawer = (props) => {
       onStateChange={(drawerState) => handleToggleDrawer(drawerState.isOpen)}
     >
       <MenuItem
-        id={"menu-entry-start-page"}
-        name={"Startseite"}
-        onClick={() => {
-          handleCloseModals();
-          handleToggleDrawer(false);
-        }}
-      />
-      <MenuItem
         id={"menu-entry-contact-form"}
         name={"Kontakt"}
         onClick={() => {
