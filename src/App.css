@@ -36,3 +36,64 @@
     transform: rotate(360deg);
   }
 }
+
+/* Website Title */
+
+.title {
+  animation: moveTitle 4s forwards;
+}
+
+@keyframes moveTitle {
+  0% {
+    opacity: 0;
+    height: 100%;
+  }
+  50% {
+    opacity: 1;
+    height: 100%;
+  }
+  100% {
+    height: 8rem;
+  }
+}
+
+/* Filters */
+
+.filters {
+  animation: fadeFilters 7s forwards;
+}
+
+@keyframes fadeFilters {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Gallery */
+
+.gallery {
+  animation: galleryFadeIn 5s forwards;
+}
+
+@keyframes galleryFadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Modals */
+.ReactModal__Overlay {
+  z-index: 9999;
+}
