@@ -16,9 +16,9 @@ const AboutMeModal = ({ isOpen, handleClose }) => {
           letterSpacing: 1,
         }}
       >
-        <div>
+        <div style={{ textAlign: "center" }}>
           <h2>Über mich</h2>
-          <img src={constants.PROFILE_PICTURE_URL} />
+          <img src={"assets/profile-pic.jpeg"} height={300} />
           <p>
             Ich werde immer wieder gefragt, welche Technik ich bevorzuge:
             <br />
