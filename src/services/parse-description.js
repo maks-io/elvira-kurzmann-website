@@ -1,4 +1,4 @@
-const REGEX_PAINTINGSUBJECT = /^(Akt|Figural|Flora|Fauna|Landschaft|Stilleben|Stockerau|Winter)$/i;
+const REGEX_PAINTINGSUBJECT = /^(Akt|Diverses|Figural|Flora|Fauna|International|Österreich|Stilleben|Stockerau|Winter)$/i;
 const REGEX_PAINTINGTYPE = /^(Acryl|Aquarell|Kohle|Öl)$/i;
 const REGEX_DIMENSIONS = /^([0-9]*) x ([0-9]*) cm$/;
 const REGEX_PRICE = /^([0-9]*)€$/;
