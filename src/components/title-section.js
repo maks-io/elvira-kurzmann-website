@@ -2,7 +2,7 @@ import React from "react";
 import colors from "../colors";
 import constants from "../constants";
 
-const TitleSection = () => {
+const TitleSection = ({ children }) => {
   return (
     <div
       className={"title"}
@@ -20,6 +20,7 @@ const TitleSection = () => {
     >
       <div
         style={{
+            display: "flex",
           lineHeight: "2rem",
           opacity: 0.65,
           filter: "drop-shadow(0px 0px 45px black)",
@@ -29,6 +30,7 @@ const TitleSection = () => {
       </div>
       <div
         style={{
+            display: "flex",
           fontSize: "1rem",
           opacity: 1.0,
           filter: "drop-shadow(0px 0px 45px black)",
@@ -36,6 +38,7 @@ const TitleSection = () => {
       >
         Malen und Kunst aus Stockerau
       </div>
+      {children}
     </div>
   );
 };

@@ -15,7 +15,7 @@ const FilterSection = (props) => {
     <div
       className={"filters"}
       style={{
-        height: constants.FILTER_SECTION_HEIGHT,
+        // height: constants.FILTER_SECTION_HEIGHT,
         display: "flex",
         flexWrap: "wrap",
         justifyContent: "center",

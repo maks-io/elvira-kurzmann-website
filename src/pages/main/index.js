@@ -142,13 +142,13 @@ class Main extends Component {
               width: "80vw",
             }}
           >
-            <TitleSection />
+            <TitleSection>
             <FilterSection
               focusedPictureData={focusedPictureData}
               paintingSubjectFilter={this.state.paintingSubjectFilter}
               setPaintingSubjectFilter={this.setPaintingSubjectFilter}
               availablePaintingSubjects={this.state.availablePaintingSubjects}
-            />
+            /></TitleSection>
             <GallerySection
               focusedPictureData={focusedPictureData}
               filteredPictures={filteredPictures}
