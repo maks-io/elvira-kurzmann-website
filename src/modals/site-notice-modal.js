@@ -19,7 +19,7 @@ const SiteNoticeModal = ({isOpen,handleClose}) => {
             >
                 <h2>Impressum</h2>
                 <h3>Elvira Kurzmann</h3>
-                <h4>Malen und Kunst aus Stockerau</h4>
+                <h4>Aquarelle - Kunst aus Stockerau</h4>
                 <p>
                     Theodor Körner-Straße 6<br />
                     2000 Stockerau

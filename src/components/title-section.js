@@ -36,7 +36,7 @@ const TitleSection = ({ children }) => {
           filter: "drop-shadow(0px 0px 45px black)",
         }}
       >
-        Malen und Kunst aus Stockerau
+        Aquarelle - Kunst aus Stockerau
       </div>
       {children}
     </div>
