@@ -20,6 +20,7 @@ const FilterSection = (props) => {
         flexWrap: "wrap",
         justifyContent: "center",
         pointerEvents: focusedPictureData && "none",
+        marginTop: "0.6rem",
       }}
     >
       {["ALLE THEMEN", ...availablePaintingSubjects].map((ps, index) => (

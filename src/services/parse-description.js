@@ -3,10 +3,8 @@ const REGEX_PAINTINGTYPE = /^(Acryl|Aquarell|Kohle|Öl)$/i;
 const REGEX_DIMENSIONS = /^([0-9]*) x ([0-9]*) cm$/;
 const REGEX_PRICE = /^([0-9]*)€$/;
 
-export const parseDescription = (pictureData) => {
-  const descriptionSegments = pictureData.node.edge_media_to_caption.edges[0].node.text.split(
-    "\n"
-  );
+export const parseDescription = (caption) => {
+  const descriptionSegments = caption.split("\n");
 
   const title = descriptionSegments[0];
 

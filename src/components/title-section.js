@@ -20,7 +20,7 @@ const TitleSection = ({ children }) => {
     >
       <div
         style={{
-            display: "flex",
+          display: "flex",
           lineHeight: "2rem",
           opacity: 0.65,
           filter: "drop-shadow(0px 0px 45px black)",
@@ -30,10 +30,11 @@ const TitleSection = ({ children }) => {
       </div>
       <div
         style={{
-            display: "flex",
+          display: "flex",
           fontSize: "1rem",
           opacity: 1.0,
           filter: "drop-shadow(0px 0px 45px black)",
+          marginTop: "0.6rem",
         }}
       >
         Aquarelle - Kunst aus Stockerau

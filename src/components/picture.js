@@ -6,31 +6,35 @@ class Picture extends Component {
   state = { isHovered: false };
 
   render() {
-    const { data, setFocus } = this.props;
-    const {
-      display_url: src,
-      dimensions: { height: originalHeight, width: originalWidth },
-    } = data;
-
-    const ratio = parseFloat(originalHeight) / parseFloat(originalWidth);
-    const thumbnailWidth = thumbnailHeight / ratio;
+    const { data, setFocus, isLast } = this.props;
+    const { media_url: src } = data;
 
     return (
-      <img
-        className={"picture"}
-        src={src}
+      <div
         style={{
-          width: `${thumbnailWidth}rem`,
-          height: `${thumbnailHeight}rem`,
+          maxWidth: "min(80vw, 300px)",
           margin: "1rem",
-          cursor: "pointer",
-          transform: this.state.isHovered && "scale(1.2)",
+          marginBottom: isLast && "6rem",
         }}
-        onMouseEnter={() => this.setState({ isHovered: true })}
-        onMouseLeave={() => this.setState({ isHovered: false })}
-        onClick={() => setFocus(data.id)}
-        alt={"small-pic"}
-      />
+      >
+        <img
+          className={"picture"}
+          src={src}
+          style={{
+            // width: `${thumbnailWidth}rem`,
+            // height: `${thumbnailHeight}rem`,
+            maxWidth: "100%",
+            maxHeight: "100%",
+            objectFit: "contain",
+            cursor: "pointer",
+            transform: this.state.isHovered && "scale(1.2)",
+          }}
+          onMouseEnter={() => this.setState({ isHovered: true })}
+          onMouseLeave={() => this.setState({ isHovered: false })}
+          onClick={() => setFocus(data.id)}
+          alt={"small-pic"}
+        />
+      </div>
     );
   }
 }

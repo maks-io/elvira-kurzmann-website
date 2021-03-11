@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ResizeDetector from "react-resize-detector";
 import _ from "lodash";
 import InstagramOutlined from "@ant-design/icons/lib/icons/InstagramOutlined";
 
@@ -7,34 +6,14 @@ class FocusedPicture extends Component {
   state = { windowWidth: window.innerWidth, windowHeight: window.innerHeight };
   // state = {};
 
-  handleResize = (width, height) => {
-    this.setState({
-      windowWidth: width,
-      windowHeight: height,
-    });
-  };
-
   render() {
     const { data, onClick } = this.props;
     if (!data) return null;
     const {
-      display_url: src,
-      dimensions: { height: originalHeight, width: originalWidth },
+      media_url: src,
       parsedDescription: { title, paintingSubject, paintingType, size, price },
-      shortcode,
+      permalink,
     } = data;
-
-    const windowRatio = this.state.windowHeight / this.state.windowWidth;
-    const pictureRatio = originalHeight / originalWidth;
-
-    const widthIsTheLimit = windowRatio >= pictureRatio;
-
-    const limitingDimensions = {
-      width: widthIsTheLimit ? `${this.state.windowWidth}px` : "100%",
-      height: !widthIsTheLimit ? `${this.state.windowHeight}px` : "100%",
-    };
-
-    const isSmallDevice = this.state.windowWidth < 600;
 
     const subtitleElements = [];
     if (paintingSubject) {
@@ -55,81 +34,94 @@ class FocusedPicture extends Component {
     }
 
     return (
-      <ResizeDetector handleWidth handleHeight onResize={this.handleResize}>
+      <div
+        onClick={onClick}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          position: "absolute",
+          top: "0px",
+          height: "100vh",
+          width: "100vw",
+          maxHeight: "100%",
+          maxWidth: "100%",
+        }}
+      >
         <div
-          onClick={onClick}
           style={{
+            position: "relative",
             display: "flex",
+            flex: 1,
+            height: "100%",
+            maxHeight: "100%",
+            maxWidth: "100%",
+            objectFit: "contain",
             justifyContent: "center",
-            alignItems: "center",
-            position: "absolute",
-            top: "0px",
-            ...limitingDimensions,
           }}
         >
-          <div style={{ position: "relative", display: "flex" }}>
-            <img
-              className={"picture"}
-              src={src}
-              style={{
-                cursor: "pointer",
-              }}
-              width={widthIsTheLimit && this.state.windowWidth}
-              height={!widthIsTheLimit && this.state.windowHeight}
-              alt={"focused-pic"}
-            />
+          <img
+            className={"picture"}
+            src={src}
+            style={{
+              cursor: "pointer",
+              maxWidth: "100%",
+              maxHeight: "100%",
+              objectFit: "contain",
+            }}
+            // width={this.state.windowWidth}
+            // height={this.state.windowHeight}
+            alt={"focused-pic"}
+          />
+          <div
+            style={{ position: "absolute", top: 0, left: 0, padding: "1vw" }}
+          >
+            <InstagramButton permalink={permalink} />
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 0,
+              width: "100%",
+              textAlign: "right",
+              backgroundColor: "black",
+              opacity: 0.65,
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "min(5vw, 24px)",
+              display: "flex",
+              flexDirection: "column",
+              flex: 1,
+            }}
+          >
             <div
-              style={{ position: "absolute", top: 0, left: 0, padding: "1vw" }}
-            >
-              <InstagramButton shortcode={shortcode} />
-            </div>
-            <div
               style={{
-                position: "absolute",
-                bottom: 0,
-                width: "100%",
-                textAlign: "right",
-                backgroundColor: "black",
-                opacity: 0.65,
-                color: "white",
-                fontWeight: "bold",
-                fontSize: "2rem",
+                margin: "0.2rem 1rem",
+                fontSize: "min(5vw, 24px)",
+                letterSpacing: "0.3rem",
                 display: "flex",
-                flexDirection: "column",
-                flex: 1,
+                justifyContent: "center",
+                textAlign: "center",
               }}
             >
+              {title}
+            </div>
+            {subtitleElements.length > 0 && (
               <div
                 style={{
-                  margin: "0.2rem 1rem",
-                  fontSize: isSmallDevice ? "6vw" : "2.0rem",
-                  letterSpacing: "0.3rem",
+                  margin: "0.2rem 0 0.6rem 0",
+                  letterSpacing: "min(0.1rem, 1vw)",
+                  fontSize: "min(3vw,18px)",
                   display: "flex",
                   justifyContent: "center",
                 }}
               >
-                {title}
+                <Subtitle elements={subtitleElements} />
               </div>
-              {subtitleElements.length > 0 && (
-                <div
-                  style={{
-                    margin: "0.2rem 0 0.6rem 0",
-                    letterSpacing: isSmallDevice ? "0.8vw" : "0.5rem",
-                    fontSize: isSmallDevice ? "4vw" : "1.2rem",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Subtitle
-                    elements={subtitleElements}
-                    isSmallDevice={isSmallDevice}
-                  />
-                </div>
-              )}
-            </div>
+            )}
           </div>
         </div>
-      </ResizeDetector>
+      </div>
     );
   }
 }
@@ -159,8 +151,8 @@ class InstagramButton extends Component {
   state = { isHovered: false };
 
   render() {
-    const { shortcode } = this.props;
-    const url = `https://www.instagram.com/p/${shortcode}`;
+    const { permalink } = this.props;
+    const url = permalink;
     return (
       <a
         href={url}

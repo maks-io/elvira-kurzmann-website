@@ -18,7 +18,12 @@ const GallerySection = (props) => {
       }}
     >
       {filteredPictures.map((p, index) => (
-        <Picture key={`picture-${index}`} data={p} setFocus={setFocus} />
+        <Picture
+          key={`picture-${index}`}
+          data={p}
+          setFocus={setFocus}
+          isLast={filteredPictures.length - 1 === index}
+        />
       ))}
     </div>
   );

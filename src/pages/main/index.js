@@ -3,7 +3,6 @@ import axios from "axios";
 import _ from "lodash";
 import Modal from "react-modal";
 import colors from "../../colors";
-import config from "../../config";
 import { preparePictures } from "../../services/prepare-pictures";
 import FocusedPicture from "../../components/focused-picture";
 import { getInstagramUrl } from "../../services/get-instagram-url";
@@ -28,7 +27,7 @@ class Main extends Component {
   };
 
   componentDidMount = async () => {
-    const url = getInstagramUrl(config.userId, config.limit);
+    const url = getInstagramUrl();
     const fetchedPictureData = await axios.get(url);
     const pictures = preparePictures(fetchedPictureData);
     const availablePaintingSubjects = Object.keys(
@@ -91,7 +90,7 @@ class Main extends Component {
   };
 
   render() {
-    const filter = this.state.focusedPicture && "blur(6px)";
+    const filter = this.state.focusedPicture && "blur(10px) grayscale(0.7)";
     const focusedPictureData =
       this.state.focusedPicture &&
       this.state.pictures.filter((p) => p.id === this.state.focusedPicture)[0];
@@ -143,12 +142,13 @@ class Main extends Component {
             }}
           >
             <TitleSection>
-            <FilterSection
-              focusedPictureData={focusedPictureData}
-              paintingSubjectFilter={this.state.paintingSubjectFilter}
-              setPaintingSubjectFilter={this.setPaintingSubjectFilter}
-              availablePaintingSubjects={this.state.availablePaintingSubjects}
-            /></TitleSection>
+              <FilterSection
+                focusedPictureData={focusedPictureData}
+                paintingSubjectFilter={this.state.paintingSubjectFilter}
+                setPaintingSubjectFilter={this.setPaintingSubjectFilter}
+                availablePaintingSubjects={this.state.availablePaintingSubjects}
+              />
+            </TitleSection>
             <GallerySection
               focusedPictureData={focusedPictureData}
               filteredPictures={filteredPictures}
