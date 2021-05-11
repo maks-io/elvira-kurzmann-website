@@ -10,7 +10,7 @@
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "intl": "^1.2.5",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "react": "^16.13.1",
     "react-burger-menu": "^2.6.13",
     "react-dom": "^16.13.1",
